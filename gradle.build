@@ -1,1 +1,40 @@
+//Top-level build file where you can add configuration options common to all sub-projects/modules
+/**
+  * The buildScript block is where you configure the respositories and
+  * dependencies for Gradle itself-meaning, you should not include dependecies
+  * for modules here. for example, this block includes the Android plugin for
+  * Gradle as a dependency because it provides the addtional instructions Gradle
+  * needs to build Android app modules.
+  */
 
+buildscript {
+    /**
+      * The repositories block configures the repostories Gradle uses to
+      * search or download the dependencies. Gradle pre-configures support for remote
+      * repositories such as JCenter, Maven Central, and Ivy. you can also use local 
+      * resositories or define your own remote repositories.  The code belwo defines
+      * JCenter as the respository Gradle should ue to look for its dependencies.
+      */
+      
+    repositories {
+      jcenter()
+    }
+    
+    /**
+      * The dependencies block configures the dependencies Gradle needs to use
+      * to build your project. the following line adds Android plugin for Gradle
+      * version 2.3.2 as a classpath dependenncy.
+      */
+     dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.2'
+        
+        //Note: do not place your application dependencies herel they belong
+        // in the individual module build.gradle files.
+     }
+  
+}
+
+/**
+  * The allprojects block is where you configure the repositories and 
+  * dependencies used by all modules in your project, such as third-party plugins
+  * or libraries
