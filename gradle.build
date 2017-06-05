@@ -37,4 +37,18 @@ buildscript {
 /**
   * The allprojects block is where you configure the repositories and 
   * dependencies used by all modules in your project, such as third-party plugins
-  * or libraries
+  * or libraries. Dependencies that are not required by all the modules in the
+  * project should be configured in modeule-level build.gradle files.  For new
+  * projects, Android studio configures JCenter as the default repository, but it
+  * does not configure any dependencies.
+  */
+  
+  allprojects {
+     respositories {
+           jcenter()
+     }
+     tasks.withType(JavaCompile) {
+         sourceCompatibility = "1.7"
+         targetCompatibility = "1.7"
+     }
+  }
