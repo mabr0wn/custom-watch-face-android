@@ -75,7 +75,30 @@ public class SimpleWatchFaceConfigurationActivity extends ActionBarActivity impl
         watchConfigurationPreferences = WatchConfigurationPreferences.newInstance(this);
      
         backgroundColourImagePreview.setBackgroundColour(watchConfigurationPreferences.getBackgroundColour());
-   }         
+   }    
+   
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+    googleApiClient.connect();
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+      if (item.getItemId() == android.R.id.home) {
+          finish();
+          return true;
+      }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onColourSelected(String colour, String tag) {
+        PutDataMapRequest putDataMapReq = PutDataMapRequest.create(WatchfaceSyncCommons.PATH);
+
+        if(TAG_BACKGROUND_COLOUR_CHOOSER.equals(tag)) {
+            backgroundColourImagePreview.setBackgroundColor(Color.parseColor(colour));
             
           
           
