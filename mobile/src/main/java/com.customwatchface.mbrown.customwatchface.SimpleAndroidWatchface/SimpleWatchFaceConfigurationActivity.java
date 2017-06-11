@@ -99,8 +99,40 @@ public class SimpleWatchFaceConfigurationActivity extends ActionBarActivity impl
 
         if(TAG_BACKGROUND_COLOUR_CHOOSER.equals(tag)) {
             backgroundColourImagePreview.setBackgroundColor(Color.parseColor(colour));
-            
+            watchConfigurationPreferences.setBackgroundColour(Color.parseColor(colour));
+            putDataMapReq.getDataMap().putString(WatchfaceSyncCommons.KEY_DATE_TIME_COLOUR, colour);
           
-          
-          
-}
+        } else {
+            dateAndTimeColourImagePreview.setBackgroundColor(Color.parseColor(colour));
+            watchConfigurationPreferences.setDateAndTimeColour(Color.parseColor(colour));
+            putDataMapReq.getdataMap().putString(WatchfaceSyncCommons.KEY_DATE_TIME_COLOUR, colour);
+         
+        }
+        PutDataRequest putdataReq = putDataMapReq.asPutDataRequest();
+        Wearable.DataApi.putDataItem(googleApiClient, putdataReq);
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Log.d(TAG, "onConnected");
+    }
+           
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.e(TAG, "onConnectionSuspended");
+    }
+           
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.e(TAG, "onConnectionFailed");
+    
+    }
+           
+    @Override
+    protected void onStop() {
+        if (googleApiClient != null && googleApiClient.isConnected()) {
+            googleApiClient.disconnect();
+        }
+        super.onStop();
+    }
+  }           
