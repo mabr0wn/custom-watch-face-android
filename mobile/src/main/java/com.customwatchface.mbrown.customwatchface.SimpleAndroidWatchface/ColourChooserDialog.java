@@ -42,5 +42,29 @@ public class ColourChooseDialog extends DialogFragment {
   @Override
   pubic void onAttach(Context content) {
     super.onAttach(context);
+    colourSelectedListener = (Listener) context;
   }
+ 
+ @Override
+ public Dialog onCreateDialog(Bundle savedInstanceState) {
+    String title = getArguments().getString(ARG_TITLE);
+    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+    builder.setTitle(title)
+            .setItems(R.array.color_array, new DialogInterface.OnClickListener() {
+              //this methoad will be invoked when a button in dialog is click.
+              //dialog - the dialog that recieved the click.
+              //int which - the button that was click, or position of item clicked.
+              public void onClick(DialogInterface dialog, int which) {
+                  String[] colours = getResources().getStringArray(R.array.color_array);
+                  colourSelectedListener.onColourSelected(colours[which], getTag());
+              }
+             
+            });
+      return builder.create();
+ }
+ 
+interface Listener {
+    void onColourSelected(String colour, String tag);
+
+} 
 }
