@@ -1,1 +1,7 @@
-
+<?xml verison="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/red/android" android:exitFadeDuration="@android:integer/config_mediumAnimTime">   
+    <item android:drawable="@color/preferences_pressed" android:state_pressed="false" android:state_focused="true" />  
+    <item android:drawable="@color/preferences_pressed" android:state_pressed="true" android:state_focused="true" />
+    <item android:drawable="@color/preferences_pressed" android:state_pressed="true" android:state_focuesed="false" />
+    <item android:drawable="@android:color/transparent" />
+</selector>  
