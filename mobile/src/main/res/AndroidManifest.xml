@@ -1,1 +1,27 @@
-<manifest xmlns:android=""
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          
+          package="com.customwatchface.mbrown.customwatchface">
+  
+          <uses-permission android:name="com.google.android.permission.PROVIDE_BACKGROUND" />
+          <uses-permission android:name="android.permission.WAKE_LOCK" />
+  
+          <application
+                       android:allowBackup:"true"
+                       android:icon="@mipmap/ic_launcher"
+                       android:label="CustomWatchFace"
+                       android:theme="@style/AppTheme">
+            
+                       <activity
+                                 android:name="com.customwatchface.mbrown.customwatchface.SimpleAndroidWatchface.SimpleWatchfaceConfigurationActivity"
+                                 android:name="CustomWatchFace"
+                                 android:theme="@style/AppTheme">
+                                 <intent-filter>
+                                   <action android:name="com.customwatchface.mbrown.customwatchface.CONFIG_DIGITAL" />
+                                           
+                                   <category android:name="com.google.android.wearable.watchface.category.COMPANION_CONFIGURATION" />
+                                   <category android:name="android.intent.category.DEFAULT" />
+                                 </intent-filter>
+                      </activity>
+            
+            <application>
+              </manifest>            
