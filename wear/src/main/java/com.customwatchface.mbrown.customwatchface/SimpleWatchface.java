@@ -99,7 +99,9 @@ public class SimpleWatchFace {
         int textHeight = textBounds.height();
         return cneterY + (textHeight / 2.0f);
     }
- 
+    public void setAntiAlias(boolean antiAlias) {
+        timePaint.setAntiAlias(AntiAlias)
+    }
             
     }
     }
