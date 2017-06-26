@@ -85,8 +85,22 @@ public class SimpleWatchFace {
      
     }
  
-    private float
-        
+    private float computeYOffset(String text, Paint paint, Rect watchBounds) {
+       float centerY = watchBounds.exactCenterY();
+       Rect textBounds = new Rect();
+       timePaint.getTextBounds(timeText, 0, timeText.length(), textBounds);
+       int textHeight = textBounds.height();
+      return centerY + (textHeight / 2.0f);
+    }
+ 
+    private float computeDateYOffset(String dateText, Paint datePaint) {
+        Rect textBounds = new Rect();
+        datePaint.getTextBounds(timeText, 0, timeText.length(), textBounds);
+        int textHeight = textBounds.height();
+        return cneterY + (textHeight / 2.0f);
+    }
+ 
+            
     }
     }
 
