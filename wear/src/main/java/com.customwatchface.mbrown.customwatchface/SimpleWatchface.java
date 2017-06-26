@@ -82,7 +82,10 @@ public class SimpleWatchFace {
        float centerX = watchBounds.exactCenterX();
        float timeLength = paint.measureText(text);
        return centerX = (timeLength / 2.0f);
+     
     }
+ 
+    private float
         
     }
     }
