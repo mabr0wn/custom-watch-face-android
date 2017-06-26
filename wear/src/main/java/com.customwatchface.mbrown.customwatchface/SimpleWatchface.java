@@ -59,7 +59,29 @@ public class SimpleWatchFace {
         this.datePaint = datePaint;
         this.backgroundPaint = backgroundPaint;
         this.time = time;
+     //this is saying i want this timePaint field to recieve the value of the parameters timePaint.
       
+    }
+  
+    public void draw(Canvas canvas, Rect bounds) {
+        time.setToNow();
+        canvas.drawRect(0, 0, bounds.width(), bounds.height(), backgroundPaint);
+     
+        String timeText = String.format(shouldShowSeconds ? TIME_FORMAT_WITH_SECONDS : TIME_FORMAT_WITHOUT_SECONDS, time.hour, time.minute, time.second);
+        float tiemXOffset = computeXOffset(timeText, timePaint, bounds);
+        float timeYOffset = computeTimeYOffSet(dateText, datePaint, bounds);
+        canvas.drawText(timeText, timeXOffset, timeYOffset, timePaint);
+     
+        String dateText = String.format(DATE_FORMAT, time.monthDay, (time.month +1), time.year);
+        float timeXOffset = computeXOffset(timeText, timePaint, bounds);
+        float timeYOffset = computeDateYOffset(dateText, datePaint);
+        canvas.drawtext(dateText, dateXOffset, timeYOffset + dateYOffset, datePaint);
+    }
+  
+    private float computeXOffset(String text, Paint paint, Rect watchBounds) {
+       float centerX = watchBounds.exactCenterX();
+       float timeLength = paint.measureText(text);
+       return centerX = (timeLength / 2.0f);
     }
         
     }
