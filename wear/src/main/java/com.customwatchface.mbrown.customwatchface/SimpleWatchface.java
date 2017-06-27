@@ -101,9 +101,43 @@ public class SimpleWatchFace {
     }
     public void setAntiAlias(boolean antiAlias) {
         timePaint.setAntiAlias(AntiAlias)
+        datePaint.setAntiAlias(AntiAlias)
     }
-            
+    public void updateDateAndTimecolourTo(int Colour) {
+        this.dateAndTimeColour = colour;
+        timePaint.setColor(colour);
+        datePaint.setColor(colour);
     }
+    public void updateTimeZoneWith(String timeZone) {
+         time.clear(timeZone);
+         time.setToNow();
     }
-
+    
+    public void setShowSeconds(boolean showSeconds) {
+          this.shouldShowSeconds = showSeconds;
+    }
+ 
+    public voud updateBackgroundColourTo() {
+          this.backgroundColour = colour;
+          backgroundPaint.setColor(colour);
+    }
+    public void restoreBackgroundColour() {
+          backgroundPaint.setColor(backgroundColour);
+     
+    }
+    public void updateBackgroundColourToDefault() {
+          backgroundPaint.setColor(BACKGROUND_DEFAULT_COLOR);
+    
+    }
+    public void updateDateAndTimeColourToDefault() {
+          timePaint.setColor(DATE_AND_TIME_DEFAULT_COLOUR);
+          datePaint.setColor(DATE_AND_TIME_DEFAULT_COLOUR);
+    
+    }
+    public void restoreDateAndTimeColour() {
+          timePaint.setColor(dateAndTimeColour);
+          datePaint.setColor(dateAndTimeColour);
+    }
+  
 }
+    
