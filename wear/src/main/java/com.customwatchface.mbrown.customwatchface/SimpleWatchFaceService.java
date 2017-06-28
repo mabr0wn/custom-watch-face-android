@@ -33,3 +33,62 @@ import com.google.android.gms.wearbale.Wearable;
 
 
 import java.util.concurrent.TimeUnit;
+
+
+
+/**
+  * this project is to create my own watch-face
+  * tweaks come later.
+  * Created on Github by MBrown 6/27/2017
+  */
+// CanvasWatchFaceService is the base class for watc faces which draw on a Canvas(SupeClass)
+public class SimpleWatchFaceService extends CanvasWatchFaceService {
+  
+  private static final long TICK_PERIOD_MILLIS = TimeUnit.SECONDS.toMillis(1);
+  
+  //We need the override method to override the Engine onCreateEngine which Overrides WallpaperService class and Gles @android.support.annotation.CallSuper overrides Engine onCreateEngine,  class from CanvasWatchFaceService and create a new SimpleEngine Class.
+  @Override
+  public Engine onCreateEngine() {
+    Return new SimpleEngine();
+  }
+  
+  //The CanvasWatchFaceService.Engigne is the Service that actual implementation of the watch face.  We need this to build our Watch faces.
+  //The implements allows tou use the elements in my case it will be GoogleApiclient elements.  We need this to communicate to google services.
+  private class SimpleEngine extends CanvasWatchFaceService.Engine implements
+          GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+  
+    
+    
+      //Static Field
+      public static final String ACTION_TIME_ZONE = "time-zone";
+      public static final String TAG = "SimpleEngine";
+    
+      //non-static field
+      private SimpleWatchFace watchFace;
+      //Handler allows you to send and process messages and runnable objects associated with a thread MessageQ.
+      private Handler timeTick;
+      //Need google api client to connnect to google play services library.
+      private GoogleApiClient googleApiClient;
+    
+      //We are creating these three private variable fields so each variable can ave own values for these fields above.
+    
+      @Override
+      public void onCreate(SurfaceHolder holder) {
+        //inialize your watch face
+        //onCreate() is called when activity is first created.  we need this create view GUI, bind data. when it is launched but before visible to screen.
+        super.onCreate(holder);
+        
+        //Set new accessor for WatchFaceStyle and ue .Builder to build the set methods below
+        setWatchFaceStyle(new WatchFaceStyle.Builder(SimpleWatchFaceService.this)
+                         //this setCardPeekMode will specify that the first card peeked and shown on the watch willl have a short height.
+                          .setCardPeekMode(WatchFaceStyle.PEEK_MODE_SHORT)//IS DEPRECIATED
+                         //When entered into Ambient mode, no peek card will be visible.
+                          .setAmbientPeekMode(WatchFaceStyle.AMBIENT_PEEK_MODE_HIDDEN)//IS DEPRECIATED
+                         //the background of the peek card should only be shown briefly, and only if the peek cardreperesents an interrupting notification
+                          .setBackgroundVisibility(WatchFaceStyle.BACKGROUND_VISIBILITY_INTERRUPTIVE)
+                         // We set the UI time to flase becuase we already show the time on the watch by drawing onto the Canvas.
+                          .setShowSystemUiTime(false)
+                          .build());
+      }
+  }
+}
