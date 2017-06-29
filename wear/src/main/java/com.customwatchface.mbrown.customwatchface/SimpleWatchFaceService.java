@@ -88,7 +88,20 @@ public class SimpleWatchFaceService extends CanvasWatchFaceService {
                           .setBackgroundVisibility(WatchFaceStyle.BACKGROUND_VISIBILITY_INTERRUPTIVE)
                          // We set the UI time to flase becuase we already show the time on the watch by drawing onto the Canvas.
                           .setShowSystemUiTime(false)
-                          .build());
+                          .build()); /*
+                                      * BUILD THE PROJECT (setWatchFaceStyle)
+                                      */
+       //We are now making a new variable(timeTick) called Handler that will process a loop.
+       //Looper allows a thread into something which can have a message Q, capable of handling it's own messages that keep coming in.
+       timeTick = new Handler(Looper.myLooper());
+       //Need to import android.os.Handler which allows you to send and process messages and runnables objects associated with a thread messageQ.
+       startTimerIfNeccessary();
+       //Will create method below called startTimerIfNecessary
+       
+       //this is creating a new instance which is coming from the class SimpleWatchFace
+       //Basically any code written with watchFace will point to the class SimpleWatchFace
+       watchFace = SimpleWatchFace.newInstance(SimpleWatchFaceService.this);
+       googleApiClient = new GoogleApiClient.Builder(SimpleWatchFaceService.this)
       }
   }
 }
