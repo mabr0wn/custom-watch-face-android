@@ -152,10 +152,41 @@ public class SimpleWatchFaceService extends CanvasWatchFaceService {
            if (visible) {
                registerTimeZoneReceiver();
                googleApiClient.connect();
+           } else {
+               unregisterTimeZoneReceiver();
+               releaseGoogleApiClient();
            }
+        
+           startTimerIfNecessary();
        
        }
  
+       private void releaseGoogleApiClient() {
+          if (googleApiClient != null && googleApiClient.isConnected()) {
+              Wearable.DataApi.removeListener(googleApiClient, onDataChangedListener);
+              googleApiClient.disconnect();
+           
+           
+          }
+        
+       
+       }
+       //basically unregister a prevoius registered broadcastReciever.
+       private void unregisterTimeZoneReceiver() {
+          unregisterReceiver(timeZoneChangedReceiver);
+        
+        
+       }
  
+       private void registerTimeZoneReceiver() {
+          //we need this to register that timeZone has changed, i.e. EST to CST
+          IntentFliter timeZoneFilter = new IntentFilter(Intent.ACTION_TIMEZONE_CHANGED);
+          registerReceiver(timeZoneChangedReceiver, timeZoneFilter);
+        
+        
+       }
+  
+       //Broadcast receiver is the receiver to broadcast messages out of intent i.e. bluetooth
+      //
  
  
