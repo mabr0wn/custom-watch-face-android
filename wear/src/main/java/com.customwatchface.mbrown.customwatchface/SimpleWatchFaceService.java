@@ -102,6 +102,60 @@ public class SimpleWatchFaceService extends CanvasWatchFaceService {
        //Basically any code written with watchFace will point to the class SimpleWatchFace
        watchFace = SimpleWatchFace.newInstance(SimpleWatchFaceService.this);
        googleApiClient = new GoogleApiClient.Builder(SimpleWatchFaceService.this)
+             //Adds the communication channel for apps that run on handheld and wearable devices
+             //use the .addApi if your app uses wearble API but not other google APIS
+             .addApi(Wearbale.API)
+             //provides callbacks when the client is connected or disconnected from the service most applications implement onConnected(Bundle) to start to start making request.
+             .addConnectionCallbacks(this)
+             //provides callbacks for scenarios that result in a failed attempt to connect the client  to the service
+             .addOnConnectionFailedListener(this)
+             //this will build the code above and make sure there are no errors upon building.
+             .build();
+       googleApiClaient.connect();
       }
-  }
-}
+   
+     private void startTimerIfNeccessary() {
+        //making a private method which does not need to return anything(void) called startTimeIfNeccessary for the handler looper.myLooper
+        timeTick.removeCallbakcs(timeRunnable);
+        if (isVisible() && !isInAmbientMode()) {
+            timeTick.post(timeRunnable);
+         } //code removes pending post from timeRunnable if timeTick is visible and in AmbientMode sumbit(post) data to timeRunnable messageQ
+          //we run removeCallbakcs  becuase Runnable should only be executed as they come out of the message queues.      }
+      }
+      private final Runnable timeRunnable = new Runnable() {
+      //We need the runnable to create a new thread(process)
+       @Override
+       //we need to override the run method to create a new thread from runnable.
+      public void Run() {
+           onSecondTick();
+        
+          //we need this becuase we need it to post delay of code for about 1000 milliseconds.  We don't want timeTick to crash.
+       }
+      } 
+};
+  
+       private void onSecondTick() { invalidateIfNecessary(); }
+ 
+       private void invalidateIfNecessary() {
+           if (isVisible() && !isInAmbientMode()) {
+               //invalidate will call a onDraw(Canvas(to draw into), Rect(holds four coordinates for a rectangle)) to draw the next frame
+               invalidate();
+            
+           }
+       
+       }
+
+       @Override
+       //call on/VisibilityChanged when the visibility has changed
+       public void onVisibilityChanged(boolean visible) {
+           super.onVisibilityChanged(visbile);
+           if (visible) {
+               registerTimeZoneReceiver();
+               googleApiClient.connect();
+           }
+       
+       }
+ 
+ 
+ 
+ 
