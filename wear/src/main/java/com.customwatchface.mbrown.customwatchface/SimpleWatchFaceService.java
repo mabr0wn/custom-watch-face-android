@@ -255,5 +255,78 @@ public class SimpleWatchFaceService extends CanvasWatchFaceService {
         
        }
  
-       //data API is the 
- 
+       //data API is the way wearble transfer data back and forth.  such as connecting.
+       //DataItem provides data storage with automatic syncing between the handheld and wearble
+       //DataListener to receive data events.
+       private final DataApi.DataListener onDataChangedListener = new DataApi.DataListener() {
+           @Override
+           public void onDataChanged(DataEventBuffer dataEvents) {
+              for (DataEvent event : dataEvents) {
+                   DataItem item - event.getDataItem();
+                   processConfigurationFor(item);
+              }
+           }
+        
+           dataEvents.release();
+           invalidateIfNecessary();
+         
+       }
+};
+
+        private void processConfigurationFor(DataItem item) {
+           if  (WatchfaceSyncCommons.PATH.equal(item.getUri().getPath())) {
+                DataMap dataMap = DataMapItem.fromDataItem(item).getDataMAp();
+                if (dataMap.containsKey(WatchfaceSyncCommons.KEY_BACKGROUND_COLOUR)) {
+                    String backgroundColour = dataMap.getString(WatchfaceSyncCommons.KEY_BACKGROUND_COLOUR);
+                    watchFace.updateBackgroundColourTo(Color.parseColor(backgroundColour));
+                }
+            
+                if (dataMAp.containsKey(WatchfaceSyncCommons.KEY_DATE_TIME_COLOUR)) {
+                    String timeColour = dataMap.getString(WatchfaceSyncCommons.KEY_DATE_TIME_COLOUR);
+                    watchFace.updateDataAndTimeColourTo(Color.parseColor(timeColour));
+                }
+            
+           }
+        }
+
+        private final ResultCallback<DataItemBuffer> onConnectedResultCallBack = new ResultCallback<DataITemBuffer>() {
+           @Override
+           public void onResult(@NonNull DataItemBuffer dataItems) {
+              for (DataItem item : dataItems) {
+                   processConfigurationFor(item);
+              }
+            
+              dataItems.release();
+              invalidateIfNecessary();
+           }
+        
+        };
+
+
+        @Override
+        public void onConnectionSuspended(int i) {
+            Log.e(TAG, "suspended GoogleApi")
+             
+        }
+
+        @Override
+        public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+             Log.e(TAG, "ConnectionFailed GoogleApi");
+         
+        }
+
+        @Override
+        public void onDestroy() {
+           timeTick.removeCallbakcs(timeRunnable);
+           //code removes pending posts from timeRunnable if timeTick is visible and in Ambientmode submit(post) data to timeRunnable messageQ.
+         
+           releaseGoogleApi();
+           //this will release the API of communication back with google API.
+         
+           super.onDestroy();
+           //calls the constructor, methods, and properties opf parent class.
+        }
+}
+
+}
+
