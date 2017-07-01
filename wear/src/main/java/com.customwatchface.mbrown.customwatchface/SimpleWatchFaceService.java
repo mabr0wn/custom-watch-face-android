@@ -218,12 +218,42 @@ public class SimpleWatchFaceService extends CanvasWatchFaceService {
         
        }
  
-       Override
+       @Override
         //here we have the method comparing the boolean to inAmbientMode
         //once we finish the class SimpleWatchFace, it will not be read, at the moment there is not a method created.
         public void onAmbientModeChanged(boolean inAmbientMode) {
           super.onAmbientModeChanged(inAmbientMode);
           watchFace.setAntiAlias(!inAmbientMode);
           watchFace.setShowSeconds(!inAmbientMode);
+        
+          if (inAmbientMode) {
+             watchFace.updateBackgroundColourToDefault();
+             watchFace.updateDateAndTimeColourToDefault();
+          } else {
+             watchFace.restoreBackgroundColour();
+             watchFace.restoreDateAndTimeColour();
+          }
+        
+          invalidate();
+          
+          startTimerIfNecessary();
+        
        }
+ 
+       @Override
+       public void onConnected(@Nullable Bundle bundle) {
+           Log.d(TAG, "connected GoogleAPI");
+           //DataApi allows the wearable device to communicate to a network without a mobile device.
+           //Needed if we want to use the wathc as a standalone.
+          //call the addListener when you want to notify google play that your activity is interested in listening.
+          //for the data layer.
+          //need this to get data from GoogleApi, send a call for suceess or failure to google play
+         Wearble.DataApi.addListener(googleApiClient, onDataChangedListener);
+         Wearble.DataApi.getDataItems(googleApiClient).setResultCallBack(onConnectedResultCallBack);
+        
+        
+        
+       }
+ 
+       //data API is the 
  
