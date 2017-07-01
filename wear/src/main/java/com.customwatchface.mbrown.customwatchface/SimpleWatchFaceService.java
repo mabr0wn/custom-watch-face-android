@@ -187,6 +187,43 @@ public class SimpleWatchFaceService extends CanvasWatchFaceService {
        }
   
        //Broadcast receiver is the receiver to broadcast messages out of intent i.e. bluetooth
-      //
+       //Base class for code that receives and handles broadcast intent.
+       private BroadcastReceiver timeZoneChangedReceiver = new BroadcastReceiver() {
+           @Override
+           public void onReceive(Context context, Intent intent) {
+               if (Intent.ACTION_TIMEZONE_CHANGED.equals(intent.getAction())) {
+                   watchFace.updateTimeZoneWith(intent.getStringExtra(ACTION_TIME_ZONE));
+               }
+           }
+       };
+      
+       @Override
+       //here we have the onDraw method overriding the class onDraw, we are calling the super to
+       //call the constructor of onDraw, to produce this method of drawing the rectangular canvas
+       //we need this to draw the face of the watch.
+       public void onDraw(Canvas canvas, Rect Bounds) {
+          super.onDraw(canvas, bounds);
+          watchFace.draw(canvas, bounds);
+        
+        
+       }
  
+       @Override
+       //this call onTimeTick is called every minute it is in AmbientMode
+       //we use invalidate to begin the process of onDraw.
+       public void onTimeTick() {
+           super.onTimeTick();
+           invalidate();
+        
+        
+       }
+ 
+       Override
+        //here we have the method comparing the boolean to inAmbientMode
+        //once we finish the class SimpleWatchFace, it will not be read, at the moment there is not a method created.
+        public void onAmbientModeChanged(boolean inAmbientMode) {
+          super.onAmbientModeChanged(inAmbientMode);
+          watchFace.setAntiAlias(!inAmbientMode);
+          watchFace.setShowSeconds(!inAmbientMode);
+       }
  
