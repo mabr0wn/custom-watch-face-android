@@ -1,0 +1,50 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.customwatchface.mbrown.customwatchface">
+    
+    <!--must meet hardware requirements user does not get involved -->
+    <uses-feature android:name="android.hardware.type.watch" />
+    
+    <!--Required to act as a custom watch face.  but PROVIDE_BACKGROUND IS NOT NEEDED ANYMORE --?
+    <!--uses-permission is used to grant the app permission in order to operate properly
+     this is granted by the when the app is installed. user does get involved -->
+    <uses-permission android:name="com.google.android.permission.PROVIDE_BACKGROUND" />
+    <!--Wake_Local keeps processor from sleeping or screen from diming basically to keep the screen active. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    
+    
+    <!--Basically where your app is stored. -->
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:lable="CustomWatchFace"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.DeviceDefault">
+        <!-- A service is running in the background i.e. the watch will continue to run the time while not using it.
+       <service android:name=".SimpleWatchFaceService"
+                android:label="CustomWatchFace"
+                android:permission="android.permission.BIND_WALLPAPER"
+                <!--must be requried by WallpaperService(live wallpaper) to that the system can be bind to. -->
+                
+                <meta-data
+                    android:name="android.service.wallpaper"
+                    android:resource="@xml/watch_face" />
+                <meta-data
+                    android:name="com.google.android.wearable.watchface.preview"
+                    android:resource="@drawable/preview_rectangular" />
+                <meta-data
+                    android:name="com.google.android.wearable.watchface.preview_circular"
+                    android:resource="@drawable/preview_circular" />
+                    
+             <!--to tell your android system OS how to start your application, in my case start live wallpaper. -->
+             <!--also what events to listen for to start this service -->
+             <intent-filter>
+                  <!--Need at least one action or intent will fail but we can have more then one action -->
+                  <action android:name="android.service.wallpaper.wallpaperServices" />
+                  <!--category can be zero -->
+                  <!-- category to specify the type you need in my case i need a WATCH_FACE -->
+                  <category android:name="com.google.android.wearable.watchface.category.WATCH_FACE"
+             </intent-filter>
+          </service>
+          </application>
+          
+ </manifest>
