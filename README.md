@@ -26,6 +26,7 @@ Lastly, click Finish and everything is set to proceed to the implementation. You
 In order to implement a watchface you need two core components:
 
 [CanvasWatchFaceService](https://developer.android.com/reference/android/support/wearable/watchface/CanvasWatchFaceService.html) - the base class for watch faces which draw on a Canvas
+
 [CanvasWatchFaceService.Engine](https://developer.android.com/reference/android/support/wearable/watchface/CanvasWatchFaceService.Engine.html) - the actual implementation of a watch face.
 
 Start by creating a SimpleWatchFaceService class in your wear/src/main/java/yourpackage folder. This class will extend CanvasWatchFaceService and it will be the entry point of the wear application.
