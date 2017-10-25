@@ -11,7 +11,7 @@ import android.graphics.Color;
 public class WatchConfigurationPreferences {
   
     /**STATIC**/
-    //FConstants...
+    //Constants...
     private static final String NAME = "WatchConfigurationPreferences";
     private static final String KEY_BACKGROUND_COLOUR = NAME + ".KEY_BACKGROUND_COLOUR";
     private static final String KEY_DATE_TIME_COLOUR = NAME + ".KEY_DATE_TIME_COLOUR";
