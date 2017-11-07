@@ -6,7 +6,7 @@ watch face project
 
 # Project creation
 
-I assume that you have already installed Android Studio. If not, you can grab it from here.
+I assume that you have already installed Android Studio. If not, you can grab it from [here](https://developer.android.com/studio/index.html).
 
 Start by creating a new project. Input your project name and package. Next, be sure to tick both Phone and tablet and Wear platforms on the Target Android devices screen as shown above.
 
